@@ -3,7 +3,6 @@ input_maf <- args[1]
 input_genes <- args[2]
 threshold <- args[3]
 output_maf <- sub(".maf",".filt.maf", input_maf)
-file.create(output_maf)
 #read input
 input <- read.delim(input_maf, comment.char = "#", stringsAsFactors = F)
 df <- as.data.frame(input)
