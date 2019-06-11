@@ -2,8 +2,8 @@ args = commandArgs(trailingOnly = TRUE)
 input_maf <- args[1]
 input_genes <- args[2]
 threshold <- args[3]
-output_maf <- sub(".maf",".filt.maf", input_maf)
-print("output maf created")
+output_maf <- sub(".maf",".filt.maf", basename(input_maf))
+print(output_maf)
 #read input
 input <- read.delim(input_maf, comment.char = "#", stringsAsFactors = F)
 print("input maf read")
