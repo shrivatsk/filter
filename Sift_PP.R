@@ -9,12 +9,15 @@ input <- read.delim(input_maf, comment.char = "#", stringsAsFactors = F)
 print("input maf read")
 df <- as.data.frame(input)
 print("input maf converted to df")
+rm(input)
 #filter only keep pass
 passfilter <- df[grep("pass", df$FILTER, ignore.case = T),]
 print("pass filter done")
+rm(df)
 #check against threshold
 thresholdfilter <- passfilter[apply((passfilter[,124:132]<= threshold) | (is.na(passfilter[124:132])), 1, all),]
 print("threshold filter done")
+rm(passfilter)
 genes <- read.delim(input_genes, header = F, sep = "", stringsAsFactors = F)
 print("genes read from txt")
 #check against genes
