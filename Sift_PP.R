@@ -17,7 +17,7 @@ rm(df)
 #check against threshold
 thresholdfilter <- passfilter[apply((passfilter[,124:132]<= threshold) | (is.na(passfilter[124:132])), 1, all),]
 print("threshold filter done")
-rm(passfilter)
+#rm(passfilter)
 genes <- read.delim(input_genes, header = F, sep = "", stringsAsFactors = F)
 print("genes read from txt")
 #check against genes
@@ -28,14 +28,14 @@ mfilter <- genefilter[grep("Frame_Shift_Del|Frame_Shift_Ins|In_Frame_Del|In_Fram
                          genefilter$Variant_Classification, ignore.case = T),]
 print("nonsynonymous filter done")
 #keep SIFT predictions
-siftfilter <- mfilter[grep("tolerated", mfilter$SIFT, ignore.case = TRUE, invert = TRUE),]
-print("sift filter done")
+#siftfilter <- mfilter[grep("tolerated", mfilter$SIFT, ignore.case = TRUE, invert = TRUE),]
+#print("sift filter done")
 #keep PolyPhen predictions
-ppfilter <- mfilter[grep("benign", mfilter$PolyPhen, ignore.case = TRUE, invert = TRUE), ]
-print("polyphen filter done")
+#ppfilter <- mfilter[grep("benign", mfilter$PolyPhen, ignore.case = TRUE, invert = TRUE), ]
+#print("polyphen filter done")
 #Union of SIFT and Polyphen
-dupl <- rownames(siftfilter) %in% rownames(ppfilter)
-filtered <- rbind(siftfilter, ppfilter[!dupl,])
-print("sift and polyphen combined")
-write.table(filtered, output_maf, sep = "\t", quote = F, row.names = F)
+#dupl <- rownames(siftfilter) %in% rownames(ppfilter)
+#filtered <- rbind(siftfilter, ppfilter[!dupl,])
+#print("sift and polyphen combined")
+write.table(mfilter, output_maf, sep = "\t", quote = F, row.names = F)
 print("written to output file")

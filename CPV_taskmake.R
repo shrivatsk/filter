@@ -25,7 +25,7 @@ generate_CPV_maf_task<-function(x){
   tsk$run()
 }
 
-lapply(filenames, function(x) generate_CPV_maf_task(x))
+lapply(filesnames, function(x) generate_CPV_maf_task(x))
 
 
 
