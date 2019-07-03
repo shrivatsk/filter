@@ -6,8 +6,8 @@ COPY . /app
 
 ADD Sift_PP.R /app/Sift_PP.R
 
-ADD clinvar.R /app/clinvar.R
+ADD dbnsfp_filter.R /app/dbnsfp_filter.R
 
 WORKDIR /app
 
-CMD ["Rscript", "/app/Sift_PP.R"]
+CMD ["Rscript", "/app/dbnsfp_filter.R"]
