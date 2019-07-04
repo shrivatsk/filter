@@ -1,5 +1,4 @@
-install.packages("sevenbridges")
-install.packages("tidyverse")
+
 library(tidyverse)
 library(sevenbridges)
 args = commandArgs(trailingOnly = TRUE)
