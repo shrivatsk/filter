@@ -10,8 +10,7 @@ ADD dbnsfp_filter.R /app/dbnsfp_filter.R
 
 WORKDIR /app
 
-RUN Rscript -e "install.packages('tidyverse')"
-
-RUN Rscript -e "install.packages('sevenbridges')"
+RUN Rscript -e "install.packages('BiocManager');\
+    devtools::install_github('sbg/sevenbridges-r', repos = BiocManager::repositories(), build_vignettes = FALSE, dependencies = TRUE)"
 
 CMD ["Rscript", "/app/dbnsfp_filter.R"]
