@@ -1,4 +1,4 @@
-FROM r-base:latest
+FROM bioconductor/devel_base2:latest
 
 RUN mkdir /app
 
@@ -10,7 +10,10 @@ ADD dbnsfp_filter.R /app/dbnsfp_filter.R
 
 WORKDIR /app
 
-RUN Rscript -e "install.packages('BiocManager');\
-    devtools::install_github('sbg/sevenbridges-r', repos = BiocManager::repositories(), build_vignettes = FALSE, dependencies = TRUE)"
+RUN R -e 'install.packages(c("magrittr", "tidyr"))'
 
 CMD ["Rscript", "/app/dbnsfp_filter.R"]
+
+
+
+

@@ -1,4 +1,7 @@
+BiocManager::install("sevenbridges")
 library(sevenbridges)
+library(magrittr)
+library(tidyr)
 args = commandArgs(trailingOnly = TRUE)
 input_txt <- args[1]
 input_genes <- args[2]
