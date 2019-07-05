@@ -1,5 +1,3 @@
-
-library(tidyverse)
 library(sevenbridges)
 args = commandArgs(trailingOnly = TRUE)
 input_txt <- args[1]
