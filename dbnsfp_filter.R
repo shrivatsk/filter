@@ -6,7 +6,7 @@ args = commandArgs(trailingOnly = TRUE)
 input_txt <- args[1]
 input_genes <- args[2]
 threshold <- args[3]
-output_txt <- sub("snpeff.dbnsfp_anno","snpEff.dbnsfp_anno.filt", basename(input_txt))
+output_txt <- sub("snpeEffdbnsfp_anno","snpEff.dbnsfp_anno.filt", basename(input_txt))
 print(output_txt)
 #read input
 input <- read.delim(input_txt, sep = "\t", comment.char = "#", stringsAsFactors = F)
