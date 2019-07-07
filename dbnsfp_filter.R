@@ -3,7 +3,7 @@ library(sevenbridges)
 library(magrittr)
 library(tidyr)
 args = commandArgs(trailingOnly = TRUE)
-input_txt <- "c67eac36-ddfd-4e39-b25f-26d2a6d9ebac.snpEffdbnsfp_anno.txt"
+input_txt <- args[1]
 input_genes <- args[2]
 threshold <- args[3]
 output_txt <- sub(".snpEffdbnsfp_anno.txt",".snpEff.dbnsfp_anno.filt.txt", basename(input_txt))
