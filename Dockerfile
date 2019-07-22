@@ -6,13 +6,15 @@ COPY . /app
 
 ADD Sift_PP.R /app/Sift_PP.R
 
-ADD dbnsfp_filter.R /app/dbnsfp_filter.R
+ADD dbnsfp_filter.R /app/dbnsfp_filter.R 
+
+ADD annovarfilter.R /app/annovarfilter.R
 
 WORKDIR /app
 
-RUN R -e 'install.packages(c("magrittr", "tidyr"))'
+RUN R -e 'install.packages("tidyr")'
 
-CMD ["Rscript", "/app/dbnsfp_filter.R"]
+CMD ["Rscript", "/app/annovarfilter.R"]
 
 
 

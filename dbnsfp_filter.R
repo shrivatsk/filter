@@ -2,10 +2,12 @@ BiocManager::install("sevenbridges")
 library(sevenbridges)
 library(magrittr)
 library(tidyr)
+library(bedr)
 args = commandArgs(trailingOnly = TRUE)
-input_txt <- args[1]
-input_genes <- args[2]
-threshold <- args[3]
+input_txt <- "testoutput_flags.txt"
+input_genes <- "predisposition-genes.txt"
+input_bed <- "pten_exon.bed"
+threshold <- 0.001
 output_txt <- sub(".snpEffdbnsfp_anno.txt",".snpEff.dbnsfp_anno.filt.all.txt", basename(input_txt))
 print(output_txt)
 #read input
