@@ -65,7 +65,7 @@ rm("siftfilter", "lrtfilter", "muttfilter", "mutafilter", "pphdivfilter", "pphva
 testmaf <- testmaf[grep("missense", testmaf$Variant_Classification, ignore.case = T, invert = T),]
 filtered <- rbind(unique(merged), testmaf)
 
-write.table(merged, output_txt, sep = "\t", quote = F, row.names = F)
+write.table(filtered, output_txt, sep = "\t", quote = F, row.names = F)
 
 
 
