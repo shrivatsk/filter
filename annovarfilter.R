@@ -29,7 +29,7 @@ file <- p$file(name = basename(input_txt), exact = TRUE)
 testmaf$Tumor_Sample_Barcode <- file$meta()$`Kids First Biospecimen ID`
 
 #Filtering
-testmaf <- testmaf[as.numeric(testmaf$read_depth)>4 & testmaf$allele_fraction>0.15 & as.character(testmaf$FILTER)=="PASS",]
+testmaf <- testmaf[as.numeric(testmaf$read_depth)>4 & testmaf$allele_fraction>0.3 & as.character(testmaf$FILTER)=="PASS",]
 genes <- read.delim(input_genes, header = F, sep = "", stringsAsFactors = F)
 testmaf <- testmaf[is.element(testmaf$Hugo_Symbol,genes$V1), ]
 rm(genes)
@@ -40,7 +40,7 @@ convert <- function(x) {
   return(a)
 }
 testmaf[51:93]<- sapply(testmaf[,51:93], FUN = convert)
-testmaf <- drop_na(testmaf[!rowSums(testmaf[,77:93] > threshold, na.rm = T) > 0,], "Hugo_Symbol")
+testmaf <- drop_na(testmaf[!rowSums(testmaf[,c(51,77:93)] > threshold, na.rm = T) > 0,], "Hugo_Symbol")
 
 
 #Predictions
@@ -63,6 +63,7 @@ rm("siftfilter", "lrtfilter", "muttfilter", "mutafilter", "pphdivfilter", "pphva
 
 #Add all non-missense variants
 testmaf <- testmaf[grep("missense", testmaf$Variant_Classification, ignore.case = T, invert = T),]
+testmaf <- testmaf[grep("B", testmaf$regsnp_disease, ignore.case = T, invert = T),]
 filtered <- rbind(unique(merged), testmaf)
 
 write.table(filtered, output_txt, sep = "\t", quote = F, row.names = F)
