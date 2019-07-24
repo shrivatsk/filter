@@ -34,7 +34,14 @@ genes <- read.delim(input_genes, header = F, sep = "", stringsAsFactors = F)
 testmaf <- testmaf[is.element(testmaf$Hugo_Symbol,genes$V1), ]
 rm(genes)
 testmaf <- testmaf[grep("Frame_Shift_Del|Frame_Shift_Ins|In_Frame_Del|In_Frame_Ins|Missense_Mutation|Nonsense_Mutation|Nonstop_Mutation|Splice_Region|Splice_Site|Targeted_Region|Translation_Start_Site",
-                           testmaf$Variant_Classification, ignore.case = T),]
+                        testmaf$Variant_Classification, ignore.case = T),]
+convert <- function(x) {
+  a <- as.numeric(as.character(x))
+  return(a)
+}
+testmaf[51:93]<- sapply(testmaf[,51:93], FUN = convert)
+testmaf <- drop_na(testmaf[!rowSums(testmaf[,77:93] > threshold, na.rm = T) > 0,], "Hugo_Symbol")
+
 
 #Predictions
 siftfilter <- testmaf[grep("D", testmaf$SIFT_pred, ignore.case = TRUE),]
@@ -52,7 +59,11 @@ intervar <- testmaf[grep("pathogenic|uncertain",testmaf$InterVar_automated, igno
 clinvar <- testmaf[grep("pathogenic|uncertain|risk", testmaf$CLNSIG, ignore.case = T),]
 merged <- rbind(clinvar, intervar, siftfilter,lrtfilter,muttfilter,pphdivfilter,pphvarfilter,metasvmfilter,metalrfilter,mcapfilter,fathmmfilter,proveanfilter,mutafilter)
 rm("siftfilter", "lrtfilter", "muttfilter", "mutafilter", "pphdivfilter", "pphvarfilter", "metasvmfilter", "metalrfilter","mcapfilter", "fathmmfilter", "proveanfilter", "intervar", "clinvar")
-merged <- unique(merged)
+
+
+#Add all non-missense variants
+testmaf <- testmaf[grep("missense", testmaf$Variant_Classification, ignore.case = T, invert = T),]
+filtered <- rbind(unique(merged), testmaf)
 
 write.table(merged, output_txt, sep = "\t", quote = F, row.names = F)
 
